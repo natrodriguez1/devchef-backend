@@ -16,7 +16,6 @@ module.exports = {
       }
     }
     const response = await request();
-    console.log(response.meals.length);
     for(let ingredient of response.meals){
       let parsedName = ingredient.strIngredient.replaceAll(' ','%20');
       const url = apiIngr+parsedName+'.png';
