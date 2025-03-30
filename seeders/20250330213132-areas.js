@@ -1,11 +1,11 @@
 'use strict';
 const axios = require('axios');
-const { response } = require('express');
+
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const apiUrl = 'https://www.themealdb.com/api/json/v1/1/categories.php';
+    const apiUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
     
     const request = async () => {
       try {
@@ -18,9 +18,10 @@ module.exports = {
     }
 
     const response = await request();
-    for(let category of response.categories){
-      await queryInterface.bulkInsert('categories', [{
-        name: category.strCategory,
+    for(let area of response.meals){
+      await queryInterface.bulkInsert('areas', [{
+        name: area.strArea,
+        img_url: 'assets/'+area.strArea+'.png',
         createdAt: new Date(),
         updatedAt: new Date()
       }])
@@ -28,6 +29,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('categories', null, {});
+    await queryInterface.bulkDelete('areas', null, {});
   }
 };
