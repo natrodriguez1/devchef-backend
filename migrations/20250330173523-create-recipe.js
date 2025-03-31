@@ -33,6 +33,9 @@ module.exports = {
       category_id: {
         type: Sequelize.INTEGER
       },
+      api_id:{
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
