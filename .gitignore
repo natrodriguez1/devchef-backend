@@ -1,0 +1,9 @@
+# VS Code settings
+.vscode/
+
+# Sistema operativo (macOS, Windows, Linux)
+.DS_Store
+Thumbs.db
+
+# Configuración personalizada
+config/config.json
