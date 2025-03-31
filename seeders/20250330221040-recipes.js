@@ -35,6 +35,7 @@ module.exports = {
             user_id: 1,
             area_id: a_id[0].id,
             category_id: c_id[0].id,
+            api_id: recipe.idMeal,
             createdAt: new Date(),
             updatedAt: new Date()
           }])

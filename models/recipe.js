@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     tags: DataTypes.STRING,
     user_id: DataTypes.INTEGER,
     area_id: DataTypes.INTEGER,
-    category_id: DataTypes.INTEGER
+    category_id: DataTypes.INTEGER,
+    api_id: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'recipe',
