@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = {
   async up (queryInterface, Sequelize) {
     const recipeUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
-    let [recipe_ids, recipes_metadata] = await queryInterface.sequelize.query('SELECT id, api_id FROM recipes where id>149');
+    let [recipe_ids, recipes_metadata] = await queryInterface.sequelize.query('SELECT id, api_id FROM recipes');
     let [ingredients, ingredients_metadata] = await queryInterface.sequelize.query('SELECT id FROM ingredients');
 
     const request = async (url) => {
@@ -67,5 +67,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+    await queryInterface.bulkDelete('recipe_ingredients', null, {});
   }
 };

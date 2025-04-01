@@ -10,15 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.recipe.hasOne(models.user, {
+      models.recipe.belongsTo(models.user, {
         through: 'recipe',
         foreignKey: "user_id"
       });
-      models.recipe.hasOne(models.area, {
+      models.recipe.belongsTo(models.area, {
         through: 'recipe',
         foreignKey: "area_id"
       });
-      models.recipe.hasOne(models.category, {
+      models.recipe.belongsTo(models.category, {
         through: 'recipe',
         foreignKey: "category_id"
       });

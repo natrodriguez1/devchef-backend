@@ -18,6 +18,7 @@ module.exports = {
     }
 
     const response = await request();
+    
     for(let area of response.meals){
       await queryInterface.bulkInsert('areas', [{
         name: area.strArea,

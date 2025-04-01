@@ -15,12 +15,14 @@ module.exports = {
         return null;
       }
     }
+
     const response = await request();
+
     for(let ingredient of response.meals){
-      let parsedName = ingredient.strIngredient.replaceAll(' ','%20');
-      const url = apiIngr+parsedName+'.png';
+      let ingredientName = ingredient.strIngredient;
+      const url = apiIngr+ingredientName+'.png';
       await queryInterface.bulkInsert('ingredients', [{
-        name: ingredient.strIngredient,
+        name: ingredientName,
         img_url: url,
         createdAt: new Date(),
         updatedAt: new Date()

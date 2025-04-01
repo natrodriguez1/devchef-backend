@@ -32,7 +32,7 @@ module.exports = {
             thumbnail_url: recipe.strMealThumb,
             youtube_url: recipe.strYoutube,
             tags: recipe.strTags,
-            user_id: 1,
+            user_id: 5,
             area_id: a_id[0].id,
             category_id: c_id[0].id,
             api_id: recipe.idMeal,
