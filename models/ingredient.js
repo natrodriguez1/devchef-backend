@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   ingredient.init({
     name: DataTypes.STRING,
+    description: DataTypes.TEXT,
     img_url: DataTypes.STRING
   }, {
     sequelize,

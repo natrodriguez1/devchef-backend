@@ -23,6 +23,7 @@ module.exports = {
       const url = apiIngr+ingredientName+'.png';
       await queryInterface.bulkInsert('ingredients', [{
         name: ingredientName,
+        description: ingredient.strDescription,
         img_url: url,
         createdAt: new Date(),
         updatedAt: new Date()

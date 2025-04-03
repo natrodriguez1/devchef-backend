@@ -23,6 +23,7 @@ module.exports = {
        
        if(response.meals != null){
         for(let recipe of response.meals){
+          let [u_id, user_metadata] = await queryInterface.sequelize.query('SELECT id FROM users WHERE username = \'admin\'');
           let [a_id, area_metadata] = await queryInterface.sequelize.query('SELECT id FROM areas WHERE name = \''+recipe.strArea+'\'');
           let [c_id, cat_metadata] = await queryInterface.sequelize.query('SELECT id FROM categories WHERE name = \''+recipe.strCategory+'\'')
           
@@ -32,7 +33,7 @@ module.exports = {
             thumbnail_url: recipe.strMealThumb,
             youtube_url: recipe.strYoutube,
             tags: recipe.strTags,
-            user_id: 5,
+            user_id: u_id[0].id,
             area_id: a_id[0].id,
             category_id: c_id[0].id,
             api_id: recipe.idMeal,
