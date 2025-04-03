@@ -27,8 +27,18 @@ exports.login = async (req, res) =>{
     if(!user){
         return res.status(401).json({message: "error"});
     }
+    const pass = await User.findOne({
+        where: {
+            [Op.and]: [
+                {password: password}
+            ]
+        }
+    });
+    if(!pass){
+        return res.status(401).json({message: "error"});
+    }
     const token = jwt.sign({userId: user.id}, "secret-key",{
         expiresIn: "1h"
     });
-    res.json({message: "login successful", token, username: user.username, password: user.password})
+    res.json({message: "login successful", token,id: user.id, username: user.username, password: user.password})
 }

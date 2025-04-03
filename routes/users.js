@@ -8,6 +8,10 @@ const User = require('../models').user;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  res.render('user-main');
+});
+
+router.get('/logInForm', function(req, res, next) {
   res.render('user');
 });
 
