@@ -11,9 +11,11 @@ exports.register = async (req, res) => {
             username, email, password
         });
         res.json({message: 'registered correctly'})
+        
     }catch(error){
         res.status(400).json({error: error.message})
     }
+
 };
 exports.login = async (req, res) =>{
     const {email,password} = req.body;

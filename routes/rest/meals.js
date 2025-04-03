@@ -7,6 +7,7 @@ const Ingredient = require('../../models').ingredient;
 const Area = require('../../models').area;
 const User = require('../../models').user;
 const Category = require('../../models').category;
+const RecipeIngredient = require('../../models').recipeingredient;
 
 //Todas las recetas
 router.get('/all', function(req, res, next) {
@@ -130,7 +131,7 @@ router.get('/search', function(req, res, next) {
             {
                 model: Ingredient,
                 attributes: ['name'],
-                through: { attributes: [] }
+                through: { attributes: ['measure'] }
             },
             {
                 model: Area,
@@ -225,8 +226,9 @@ router.get('/filter', function(req, res, next) {
     .catch(error => res.status(400).send(error));
 });
 
-router.post('/save', function(req, res, next) {
+/*router.post('/save', function(req, res, next) {
     let {user, name, area, thumbnail_url, youtube_url, tags, instructions, ingredients, category} = req.body;
+
     Recipe.create({
         name: name,
         instructions: instructions,
@@ -243,6 +245,49 @@ router.post('/save', function(req, res, next) {
     })
     .catch(error =>
     res.status(400).send(error))
-});
+});*/
+
+router.post('/save', async (req, res, next) => {
+    try {
+      let { user, name, area,  tags, instructions,thumbnail_url, youtube_url, ingredients, category } = req.body;
+      //let thumbnail_url = "https://www.tqma.com.ec/images/com_yoorecipe/banner_superior/1546_1.jpg";
+      //let youtube_url = "https://www.youtube.com/watch?v=tq1o6-345kA";
+      
+      const recipe = await Recipe.create({
+        name,
+        instructions,
+        thumbnail_url,
+        youtube_url,
+        tags,
+        user_id: user,
+        area_id: area,
+        category_id: category
+      });
+  
+      for (let ing of ingredients) {
+        
+        let ingredient = await Ingredient.findOne({ where: { name: ing.name } });
+        
+        if (!ingredient) {
+          ingredient = await Ingredient.create({
+            name: ing.name,
+            img_url: 'https://www.tqma.com.ec/images/com_yoorecipe/banner_superior/1546_1.jpg' ,
+          });
+        }
+
+        await RecipeIngredient.create({
+            recipe_id: recipe.id,
+            ingredient_id: ingredient.id,
+            measure: ing.measure
+          });
+      }
+  
+      res.json(recipe);
+    } catch (error) {
+      console.error(error);
+      res.status(400).send(error);
+    }
+  });
+  
 
 module.exports = router;
