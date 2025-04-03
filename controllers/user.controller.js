@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken');
 
 
 exports.register = async (req, res) => {
-    const {email, password} = req.body;
+    const {email, password, username} = req.body;
 
     try{
         const user = await User.create({
-            email, password
+            username, email, password
         });
         res.json({message: 'registered correctly'})
     }catch(error){
